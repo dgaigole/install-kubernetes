@@ -245,7 +245,7 @@ kind: ClusterConfiguration
 kubernetesVersion: v${KUBE_VERSION}
 networking:
   podSubnet: 192.168.0.0/16
-controlPlaneEndpoint: "localhost:6443"
+controlPlaneEndpoint: "$CN_HOSTNAME:6443"
 EOF
     # use config file for kubeadm
     kubeadm init --config kubeadm-config.yaml
@@ -439,12 +439,14 @@ CONTROL_NODE=false
 SINGLE_NODE=false
 VERBOSE=false
 UBUNTU_VERSION=22.04
+CN_HOSTNAME=$(hostname)
 
 # software versions
 KUBE_VERSION=1.31.0
 CONTAINERD_VERSION=1.7.20
 CALICO_VERSION=3.25.0
 CALICO_URL="https://raw.githubusercontent.com/projectcalico/calico/v${CALICO_VERSION}/manifests/"
+
 
 # create a temp dir to store logs
 TMP_DIR=$(mktemp -d -t install-kubernetes-XXXXXXXXXX)
